@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServerSide X | Elite Roblox Execution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --electric-blue: #00a1ff;
+            --deep-blue: #0062ff;
+            --neon-blue: #00f2ff;
+            --pure-black: #000000;
+            --dark-bg: #0a0a12;
+            --card-bg: rgba(15, 15, 25, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--pure-black) 0%, var(--dark-bg) 50%, var(--pure-black) 100%);
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--neon-blue) 0%, rgba(0,242,255,0) 70%);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.4; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+        
+        /* Header with Glow Effect */
+        header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(to right, var(--electric-blue), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { text-shadow: 0 0 10px rgba(0, 242, 255, 0.3); }
+            to { text-shadow: 0 0 30px rgba(0, 242, 255, 0.7); }
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--electric-blue), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        /* Animated Buttons */
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            margin: 0.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--electric-blue), var(--deep-blue));
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 98, 255, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 98, 255, 0.6);
+            animation: btnGlow 1.5s infinite alternate;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(0, 242, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        @keyframes btnGlow {
+            from { box-shadow: 0 0 10px rgba(0, 161, 255, 0.6); }
+            to { box-shadow: 0 0 20px rgba(0, 161, 255, 0.9), 0 0 30px rgba(0, 161, 255, 0.4); }
+        }
+        
+        /* Pricing Cards with Hover Animation */
+        .pricing-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pricing-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--electric-blue), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .pricing-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            width: 320px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 161, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 161, 255, 0.1) 0%, rgba(0, 161, 255, 0) 70%);
+            transform: rotate(30deg);
+            transition: all 0.6s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 98, 255, 0.2);
+            border-color: rgba(0, 161, 255, 0.4);
+        }
+        
+        .pricing-card:hover::before {
+            transform: rotate(30deg) translate(20px, 20px);
+        }
+        
+        .pricing-card.premium {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+        }
+        
+        .pricing-card.premium::after {
+            content: 'BEST VALUE';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--neon-blue);
+            color: var(--pure-black);
+            padding: 5px 30px;
+            font-weight: 700;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+        }
+        
+        .plan-name {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--electric-blue);
+        }
+        
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1.5rem 0;
+            color: white;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            color: var(--neon-blue);
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .plan-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(0, 161, 255, 0.1);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+        
+        /* Discord CTA */
+        .discord-cta {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(88, 101, 242, 0.2));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .discord-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png') no-repeat;
+            background-position: -100px center;
+            background-size: 400px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+        
+        .discord-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #7289da, #99aab5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .discord-cta p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .btn-discord {
+            background: #7289da;
+            color: white;
+            box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
+        }
+        
+        .btn-discord:hover {
+            background: #677bc4;
+            box-shadow: 0 8px 25px rgba(114, 137, 218, 0.6);
+            transform: translateY(-3px);
+        }
+        
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="bg-animation" id="particles"></div>
+    
+    <header>
+        <div class="logo">ServerSide X</div>
+    </header>
+    
+    <section class="hero">
+        <h1>The Most Powerful<br>Roblox Server-Side Execution</h1>
+        <p>Experience unmatched performance with our elite server-side execution. Join thousands of satisfied users who trust our technology.</p>
+        <div>
+            <a href="#pricing" class="btn btn-primary floating">Get Started</a>
+            <a href="https://discord.gg/yourlink" class="btn btn-outline">Join Discord</a>
+        </div>
+    </section>
+    
+    <section class="pricing-section" id="pricing">
+        <h2 class="pricing-title">Choose Your Plan</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="plan-name">Standard</h3>
+                <div class="plan-price">50 <span>Robux</span></div>
+                <ul class="plan-features">
+                    <li>Basic server-side execution</li>
+                    <li>Stable performance</li>
+                    <li>Regular updates</li>
+                    <li>Community support</li>
+                </ul>
+                <a href="https://www.roblox.com/game-pass/1066563329/Standard" class="btn btn-primary">Purchase Now</a>
+            </div>
+            
+            <div class="pricing-card premium">
+                <h3 class="plan-name">Premium</h3>
+                <div class="plan-price">150 <span>Robux</span></div>
+                <ul class="plan-features">
+                    <li><strong>Advanced execution</strong></li>
+                    <li>Priority access</li>
+                    <li>Premium scripts</li>
+                    <li>Faster updates</li>
+                    <li>VIP support</li>
+                    <li>Exclusive features</li>
+                </ul>
+                <a href="https://www.roblox.com/game-pass/1069349550/Premium" class="btn btn-primary">Purchase Now</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="discord-cta">
+        <h2>Join Our Growing Community</h2>
+        <p>Get support, exclusive content, and be the first to know about new updates in our Discord server.</p>
+        <a href="https://discord.gg/yourlink" class="btn btn-discord">Join Discord Now</a>
+    </section>
+    
+    <script>
+        // Create animated particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 100px and 300px
+                const size = Math.random() * 200 + 100;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation duration
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Add hover effect to pricing cards
+            const cards = document.querySelectorAll('.pricing-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const x = e.clientX - card.getBoundingClientRect().left;
+                    const y = e.clientY - card.getBoundingClientRect().top;
+                    
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        });
+    </script>
+</body>
+  </html>
