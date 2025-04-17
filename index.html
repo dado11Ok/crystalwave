@@ -1,168 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crystal Wave</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crystalwave.wtf</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      padding: 100px 20px;
-      margin: 0;
-    }
+        h1 {
+            text-align: center;
+            color: blue;
+            font-size: 3rem;
+        }
 
-    h1 {
-      font-size: 4rem;
-      background: linear-gradient(90deg, #00f0ff, #ff00c8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: pulse 2s infinite;
-    }
+        .header {
+            background-color: black;
+            padding: 20px;
+            text-align: center;
+        }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
+        .header a {
+            color: blue;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
 
-    .desc {
-      font-size: 1.5rem;
-      margin-top: 20px;
-      color: #bbb;
-    }
+        .menu {
+            text-align: center;
+            margin-top: 30px;
+        }
 
-    .buttons {
-      margin-top: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
+        .menu a {
+            color: blue;
+            font-size: 1.2rem;
+            text-decoration: none;
+            padding: 10px;
+            display: inline-block;
+            margin: 10px;
+            border: 1px solid blue;
+            border-radius: 5px;
+        }
 
-    .button {
-      background: linear-gradient(90deg, #00f0ff, #ff00c8);
-      border: none;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #fff;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-      text-decoration: none;
-      display: inline-block;
-      width: fit-content;
-    }
+        .menu a:hover {
+            background-color: blue;
+            color: white;
+        }
 
-    .button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-    }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.8rem;
+        }
 
-    /* Three Line Trigger */
-    .trigger {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      width: 30px;
-      cursor: pointer;
-      z-index: 999;
-    }
+        .footer a {
+            color: blue;
+        }
 
-    .line {
-      width: 100%;
-      height: 4px;
-      background-color: white;
-      margin: 6px 0;
-      transition: 0.4s;
-    }
+        .hamburger-menu {
+            display: block;
+            cursor: pointer;
+            margin: 30px auto;
+            width: 30px;
+            height: 20px;
+            position: relative;
+        }
 
-    .line.clicked:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
+        .hamburger-menu span {
+            background-color: blue;
+            display: block;
+            height: 4px;
+            margin: 5px 0;
+            transition: all 0.3s;
+        }
 
-    .line.clicked:nth-child(2) {
-      opacity: 0;
-    }
+        .hamburger-menu.open span:nth-child(1) {
+            transform: rotate(45deg);
+            position: absolute;
+            top: 0;
+        }
 
-    .line.clicked:nth-child(3) {
-      transform: rotate(-45deg) translate(6px, -6px);
-    }
+        .hamburger-menu.open span:nth-child(2) {
+            opacity: 0;
+        }
 
-    .home-link {
-      position: fixed;
-      top: 80px;
-      left: 20px;
-      display: none;
-      z-index: 998;
-    }
+        .hamburger-menu.open span:nth-child(3) {
+            transform: rotate(-45deg);
+            position: absolute;
+            top: 16px;
+        }
 
-    .home-link.show {
-      display: block;
-    }
+        .animated-link {
+            text-align: center;
+            margin-top: 50px;
+        }
 
-    .home-link a {
-      background: #222;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+        .animated-link a {
+            color: blue;
+            font-size: 1.5rem;
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+        }
 
-    .home-link a:hover {
-      background: #333;
-    }
+        .animated-link a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: blue;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
 
-    @media (min-width: 600px) {
-      .buttons {
-        flex-direction: row;
-        justify-content: center;
-      }
-    }
-  </style>
+        .animated-link a:hover::after {
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 30px auto;
+        }
+
+    </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Welcome to Crystalwave</h1>
+        <p>Your Roblox serverside execution standard</p>
+    </div>
 
-  <!-- Three Line Trigger -->
-  <div class="trigger" id="menuTrigger">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-  </div>
+    <div class="menu">
+        <a href="https://crystalwave.wtf/home/index2.html">Home</a>
+        <a href="https://crystalwave.wtf/about">About</a>
+        <a href="https://crystalwave.wtf/contact">Contact</a>
+    </div>
 
-  <!-- Home Button -->
-  <div class="home-link" id="homeLink">
-    <a href="https://crystalwave.wtf/home/index2.html" target="_blank">Home</a>
-  </div>
+    <div class="hamburger-menu" onclick="this.classList.toggle('open');">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
 
-  <h1>crystal wave</h1>
-  <p class="desc">
-    Fast, reliable, and cheap execution — only 50 Robux! Premium experience for all. Buy and join our Discord for updates and invite rewards for standard!!!
-  </p>
+    <div class="animated-link">
+        <a href="https://crystalwave.wtf/home/index2.html">Click Here to Learn More</a>
+    </div>
 
-  <div class="buttons">
-    <a href="https://www.roblox.com/game-pass/1069349550/Premium" class="button">Premium</a>
-    <a href="https://www.roblox.com/game-pass/1066563329/Standard" class="button">Standard</a>
-  </div>
+    <!-- Images Section -->
+    <div class="images">
+        <img src="https://via.placeholder.com/600x400.png?text=Roblox+Execution" alt="Roblox Execution">
+        <img src="https://via.placeholder.com/600x400.png?text=Crystalwave+Roblox" alt="Crystalwave Roblox">
+    </div>
 
-  <script>
-    const lines = document.querySelectorAll('.line');
-    const trigger = document.getElementById('menuTrigger');
-    const homeLink = document.getElementById('homeLink');
+    <div class="footer">
+        <p>Made by <strong>crystalwave.team</strong></p>
+        <p>&copy; 2025 Crystalwave. All Rights Reserved.</p>
+        <p><a href="https://discord.gg/Dm94WUJEkB">Join our Discord</a></p>
+    </div>
 
-    trigger.addEventListener('click', () => {
-      lines.forEach(line => line.classList.toggle('clicked'));
-      homeLink.classList.toggle('show');
-    });
-  </script>
-
+    <script>
+        // Optional: You can add JS for hamburger menu functionality if needed.
+    </script>
 </body>
 </html>
