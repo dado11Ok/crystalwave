@@ -5,21 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crystalwave.wtf</title>
 
-    <!-- Link to the favicon -->
-    <link id="favicon" rel="icon" href="https://github.com/dado11Ok/crystalwave/raw/main/icon/icon2.ico" type="image/x-icon">
-
-    <!-- Your JavaScript to change favicon dynamically -->
-    <script>
-        function changeFavicon(src) {
-            var link = document.getElementById('favicon');
-            link.href = src;
-        }
-
-        // Example of changing the favicon after 5 seconds (just as a demonstration)
-        setTimeout(function() {
-            changeFavicon('https://github.com/dado11Ok/crystalwave/raw/main/icon/icon.ico'); // You can change this to another favicon if needed
-        }, 5000); // Change after 5 seconds
-    </script>
+    <!-- Update the favicon link to use the new icon2.ico -->
+    <link rel="icon" href="icon/icon2.ico" type="image/x-icon">
 
     <style>
         body {
@@ -28,55 +15,72 @@
             color: white;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease;
         }
 
         h1 {
             text-align: center;
-            color: blue;
+            color: #4fa3f7;  /* Lighter Blue */
             font-size: 3rem;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .header {
             background-color: black;
             padding: 20px;
             text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
         .header a {
-            color: blue;
+            color: #4fa3f7;
             font-size: 1.5rem;
             text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .header a:hover {
+            color: white;
         }
 
         .menu {
             text-align: center;
             margin-top: 30px;
+            animation: slideIn 1s ease-in-out;
         }
 
         .menu a {
-            color: blue;
+            color: #4fa3f7;
             font-size: 1.2rem;
             text-decoration: none;
             padding: 10px;
             display: inline-block;
             margin: 10px;
-            border: 1px solid blue;
+            border: 1px solid #4fa3f7;
             border-radius: 5px;
+            transition: all 0.3s ease;
         }
 
         .menu a:hover {
-            background-color: blue;
+            background-color: #4fa3f7;
             color: white;
+            transform: scale(1.05);
         }
 
         .footer {
             text-align: center;
             margin-top: 50px;
             font-size: 0.8rem;
+            animation: fadeIn 2s ease-in-out;
         }
 
         .footer a {
-            color: blue;
+            color: #4fa3f7;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
         }
 
         .hamburger-menu {
@@ -86,14 +90,15 @@
             width: 30px;
             height: 20px;
             position: relative;
+            transition: all 0.3s ease;
         }
 
         .hamburger-menu span {
-            background-color: blue;
+            background-color: #4fa3f7;
             display: block;
             height: 4px;
             margin: 5px 0;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
 
         .hamburger-menu.open span:nth-child(1) {
@@ -115,14 +120,20 @@
         .animated-link {
             text-align: center;
             margin-top: 50px;
+            animation: fadeIn 2.5s ease-in-out;
         }
 
         .animated-link a {
-            color: blue;
+            color: #4fa3f7;
             font-size: 1.5rem;
             text-decoration: none;
             position: relative;
             display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .animated-link a:hover {
+            color: white;
         }
 
         .animated-link a::after {
@@ -130,10 +141,10 @@
             position: absolute;
             width: 0;
             height: 2px;
-            background: blue;
+            background: #4fa3f7;
             bottom: -5px;
             left: 0;
-            transition: width 0.3s;
+            transition: width 0.3s ease;
         }
 
         .animated-link a:hover::after {
@@ -145,8 +156,19 @@
             max-width: 600px;
             display: block;
             margin: 30px auto;
+            animation: fadeIn 2s ease-in-out;
         }
 
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
