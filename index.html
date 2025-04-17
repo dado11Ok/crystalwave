@@ -57,8 +57,9 @@
             background-color: black;
             padding: 20px;
             border-radius: 10px;
-            transition: left 0.3s ease;
+            transition: left 0.3s ease, opacity 0.3s ease;
             opacity: 0;
+            z-index: 999;  /* Ensure the menu stays on top */
         }
 
         .menu.open {
@@ -76,6 +77,7 @@
             border-radius: 5px;
             transition: all 0.3s ease;
             opacity: 0;
+            animation: fadeIn 0.3s ease-in-out forwards;
         }
 
         .menu a:hover {
@@ -203,7 +205,7 @@
 <body>
     <div class="header">
         <h1>Welcome to Crystalwave</h1>
-        <p>Your Roblox serverside execution standard</p>
+        <p>roblox cheapest 50 robux and 150 robux serverside click buy serverside if u wanna buy!!</p>
     </div>
 
     <div class="menu">
@@ -239,4 +241,5 @@
     </script>
 </body>
 </html>
+
 
