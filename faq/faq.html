@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | CRYSTALWAVE</title>
+    <style>
+        :root {
+            --electric-blue: #00a1ff;
+            --deep-blue: #0062ff;
+            --neon-blue: #00f2ff;
+            --pure-black: #000000;
+            --dark-bg: #0a0a12;
+            --card-bg: rgba(15, 15, 25, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--electric-blue), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .highlight-question {
+            background: rgba(0, 242, 255, 0.1);
+            border-left: 4px solid var(--neon-blue);
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(0, 161, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: var(--neon-blue);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+        
+        .buy-link {
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .buy-link:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .highlight {
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <h1>Frequently Asked Questions</h1>
+        
+        <div class="faq-item highlight-question">
+            <div class="faq-question">Where do I buy the server-side?</div>
+            <div class="faq-answer">
+                <p>Go to the three line menu and press "Buy Serverside" or visit this link: 
+                <a href="https://crystalwave.wtf/buy/buyss.html" class="buy-link" target="_blank">https://crystalwave.wtf/buy/buyss.html</a></p>
+            </div>
+        </div>
+        
+        <div class="faq-item highlight-question">
+            <div class="faq-question">Does it ban my account?</div>
+            <div class="faq-answer">
+                <p>Nope! Our server-side is Byfron bypassed and well secured. We've implemented advanced anti-detection measures to keep your account safe.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item highlight-question">
+            <div class="faq-question">Where can I get it for free?</div>
+            <div class="faq-answer">
+                <p>You can get the <span class="highlight">Standard version for free</span> by inviting 5 friends to our Discord server! Just share your referral link and when 5 people join through it, you'll receive your free access.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item highlight-question">
+            <div class="faq-question">Who is the owner of Crystalwave?</div>
+            <div class="faq-answer">
+                <p>Crystalwave was created by <span class="highlight">r94.ss / Tex</span>. Special thanks to <span class="highlight">Lenny / Exoliner</span> for helping us secure the website domain and for their contributions to the project.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Is this detectable by Roblox?</div>
+            <div class="faq-answer">
+                <p>No, our server-side execution operates in a way that Roblox's anti-cheat systems cannot detect. We use advanced techniques that make the execution appear as normal server behavior.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">What's the difference between Standard and Premium?</div>
+            <div class="faq-answer">
+                <p><span class="highlight">Standard version</span> includes basic server-side execution with regular updates and community support. <span class="highlight">Premium version</span> gives you priority access, faster updates, VIP support, and exclusive features not available in the standard version.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">How often is Crystalwave updated?</div>
+            <div class="faq-answer">
+                <p>We push updates <span class="highlight">weekly</span> to ensure compatibility with Roblox updates and to add new features. Premium users get updates immediately, while Standard users receive them after thorough testing.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Can I get banned for using this?</div>
+            <div class="faq-answer">
+                <p>While we've implemented multiple layers of protection, no exploit is 100% undetectable. However, in our <span class="highlight">2+ years of operation</span>, we've had zero confirmed bans when using our server-side properly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Auto-open the first highlighted question
+            const firstHighlight = document.querySelector('.highlight-question');
+            if (firstHighlight) {
+                firstHighlight.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
