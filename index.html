@@ -5,13 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Crystal Wave</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
       color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       padding: 100px 20px;
-      overflow: hidden;
+      margin: 0;
     }
 
     h1 {
@@ -35,13 +39,16 @@
 
     .buttons {
       margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
     }
 
     .button {
       background: linear-gradient(90deg, #00f0ff, #ff00c8);
       border: none;
       padding: 15px 40px;
-      margin: 20px;
       font-size: 1.2rem;
       font-weight: bold;
       color: #fff;
@@ -51,6 +58,7 @@
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
       text-decoration: none;
       display: inline-block;
+      width: fit-content;
     }
 
     .button:hover {
@@ -58,13 +66,14 @@
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
     }
 
-    /* Three Line Menu Trigger */
+    /* Three Line Trigger */
     .trigger {
-      position: absolute;
+      position: fixed;
       top: 20px;
       left: 20px;
       width: 30px;
       cursor: pointer;
+      z-index: 999;
     }
 
     .line {
@@ -88,10 +97,11 @@
     }
 
     .home-link {
-      position: absolute;
+      position: fixed;
       top: 80px;
       left: 20px;
       display: none;
+      z-index: 998;
     }
 
     .home-link.show {
@@ -109,6 +119,13 @@
 
     .home-link a:hover {
       background: #333;
+    }
+
+    @media (min-width: 600px) {
+      .buttons {
+        flex-direction: row;
+        justify-content: center;
+      }
     }
   </style>
 </head>
