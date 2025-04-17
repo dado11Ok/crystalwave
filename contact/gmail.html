@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | CRYSTALWAVE</title>
+    <style>
+        :root {
+            --electric-blue: #00a1ff;
+            --neon-blue: #00f2ff;
+            --dark-bg: #0a0a12;
+            --card-bg: rgba(15, 15, 25, 0.8);
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .contact-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 161, 255, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--electric-blue), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--neon-blue);
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 161, 255, 0.3);
+            background: rgba(10, 10, 18, 0.7);
+            color: white;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 3px rgba(0, 242, 255, 0.2);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background: linear-gradient(to right, var(--electric-blue), var(--neon-blue));
+            color: black;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 161, 255, 0.4);
+        }
+        
+        button:disabled {
+            background: gray;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .status-message {
+            margin-top: 1rem;
+            text-align: center;
+            min-height: 20px;
+        }
+        
+        .success {
+            color: #00ff88;
+        }
+        
+        .error {
+            color: #ff5555;
+        }
+        
+        .cooldown-message {
+            color: var(--neon-blue);
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            
+            <button type="submit" id="submitBtn">Send Message</button>
+            
+            <div class="status-message" id="statusMessage"></div>
+            <div class="cooldown-message" id="cooldownMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const statusMessage = document.getElementById('statusMessage');
+            const cooldownMessage = document.getElementById('cooldownMessage');
+            
+            // Check if user is in cooldown period
+            const lastSubmission = localStorage.getItem('lastContactSubmission');
+            const cooldownTime = 5 * 60 * 1000; // 5 minutes in milliseconds
+            
+            if (lastSubmission) {
+                const now = new Date().getTime();
+                const timeSinceLast = now - parseInt(lastSubmission);
+                
+                if (timeSinceLast < cooldownTime) {
+                    // Still in cooldown
+                    const remainingTime = Math.ceil((cooldownTime - timeSinceLast) / 1000 / 60);
+                    submitBtn.disabled = true;
+                    cooldownMessage.textContent = `Please wait ${remainingTime} more minute(s) before sending another message.`;
+                    
+                    // Update countdown every minute
+                    const countdownInterval = setInterval(() => {
+                        const now = new Date().getTime();
+                        const timeSinceLast = now - parseInt(lastSubmission);
+                        
+                        if (timeSinceLast >= cooldownTime) {
+                            clearInterval(countdownInterval);
+                            submitBtn.disabled = false;
+                            cooldownMessage.textContent = '';
+                        } else {
+                            const remainingTime = Math.ceil((cooldownTime - timeSinceLast) / 1000 / 60);
+                            cooldownMessage.textContent = `Please wait ${remainingTime} more minute(s) before sending another message.`;
+                        }
+                    }, 60000); // Update every minute
+                }
+            }
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Disable button to prevent multiple submissions
+                submitBtn.disabled = true;
+                statusMessage.textContent = "Sending your message...";
+                statusMessage.className = "status-message";
+                
+                // Get form data
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    subject: document.getElementById('subject').value,
+                    message: document.getElementById('message').value,
+                    recipient: 'dadorbx@gmail.com' // Your email address
+                };
+                
+                // Send data to server (using FormSubmit.co service)
+                fetch('https://formsubmit.co/ajax/dadorbx@gmail.com', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === "true") {
+                        // Success
+                        statusMessage.textContent = "Message sent successfully!";
+                        statusMessage.className = "status-message success";
+                        
+                        // Store submission time in localStorage
+                        localStorage.setItem('lastContactSubmission', new Date().getTime());
+                        
+                        // Clear form
+                        contactForm.reset();
+                        
+                        // Show cooldown message
+                        cooldownMessage.textContent = "You can send another message in 5 minutes.";
+                        
+                        // Enable button after cooldown
+                        setTimeout(() => {
+                            submitBtn.disabled = false;
+                            cooldownMessage.textContent = '';
+                        }, cooldownTime);
+                    } else {
+                        // Error
+                        throw new Error('Submission failed');
+                    }
+                })
+                .catch(error => {
+                    statusMessage.textContent = "Failed to send message. Please try again later.";
+                    statusMessage.className = "status-message error";
+                    submitBtn.disabled = false;
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
