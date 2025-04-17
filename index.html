@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crystalwave.wtf</title>
+
+    <!-- Link to the favicon -->
+    <link id="favicon" rel="icon" href="https://github.com/dado11Ok/crystalwave/raw/main/icon/icon.ico" type="image/x-icon">
+
+    <!-- Your JavaScript to change favicon dynamically -->
+    <script>
+        function changeFavicon(src) {
+            var link = document.getElementById('favicon');
+            link.href = src;
+        }
+
+        // Example of changing the favicon after 5 seconds (just as a demonstration)
+        setTimeout(function() {
+            changeFavicon('https://github.com/dado11Ok/crystalwave/raw/main/icon/icon.ico'); // You can change this to another favicon if needed
+        }, 5000); // Change after 5 seconds
+    </script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
