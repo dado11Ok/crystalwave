@@ -43,10 +43,22 @@
             color: white;
         }
 
+        /* Menu Styles */
         .menu {
             text-align: center;
             margin-top: 30px;
-            animation: slideIn 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: 100px;
+            left: -200px;
+            width: 200px;
+            background-color: black;
+            padding: 20px;
+            border-radius: 10px;
+            transition: left 0.3s ease;
+            opacity: 0;
         }
 
         .menu a {
@@ -54,11 +66,11 @@
             font-size: 1.2rem;
             text-decoration: none;
             padding: 10px;
-            display: inline-block;
-            margin: 10px;
+            margin: 10px 0;
             border: 1px solid #4fa3f7;
             border-radius: 5px;
             transition: all 0.3s ease;
+            opacity: 0;
         }
 
         .menu a:hover {
@@ -67,22 +79,7 @@
             transform: scale(1.05);
         }
 
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            font-size: 0.8rem;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .footer a {
-            color: #4fa3f7;
-            transition: color 0.3s ease;
-        }
-
-        .footer a:hover {
-            color: white;
-        }
-
+        /* Hamburger Menu Styles */
         .hamburger-menu {
             display: block;
             cursor: pointer;
@@ -165,10 +162,25 @@
             100% { opacity: 1; }
         }
 
+        /* Slide-in animation for menu */
         @keyframes slideIn {
-            0% { transform: translateY(-50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
+            0% { left: -200px; opacity: 0; }
+            100% { left: 0; opacity: 1; }
         }
+
+        /* Button animation delay for cascading effect */
+        .menu a:nth-child(1) {
+            animation: fadeIn 1s ease-in-out 0.5s forwards;
+        }
+
+        .menu a:nth-child(2) {
+            animation: fadeIn 1s ease-in-out 0.7s forwards;
+        }
+
+        .menu a:nth-child(3) {
+            animation: fadeIn 1s ease-in-out 0.9s forwards;
+        }
+
     </style>
 </head>
 <body>
@@ -177,16 +189,18 @@
         <p>Your Roblox serverside execution standard</p>
     </div>
 
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Menu (Initially hidden) -->
     <div class="menu">
         <a href="https://crystalwave.wtf/home/index2.html">Home</a>
         <a href="https://crystalwave.wtf/about">About</a>
         <a href="https://crystalwave.wtf/contact">Contact</a>
-    </div>
-
-    <div class="hamburger-menu" onclick="this.classList.toggle('open');">
-        <span></span>
-        <span></span>
-        <span></span>
     </div>
 
     <div class="animated-link">
@@ -206,7 +220,23 @@
     </div>
 
     <script>
-        // Optional: You can add JS for hamburger menu functionality if needed.
+        // Function to toggle menu visibility with slide-in animation
+        function toggleMenu() {
+            const menu = document.querySelector('.menu');
+            const hamburger = document.querySelector('.hamburger-menu');
+
+            if (menu.style.left === '0px') {
+                // If menu is open, close it
+                menu.style.left = '-200px';
+                menu.style.opacity = '0';
+                hamburger.classList.remove('open');
+            } else {
+                // If menu is closed, open it with animation
+                menu.style.left = '0';
+                menu.style.opacity = '1';
+                hamburger.classList.add('open');
+            }
+        }
     </script>
 </body>
 </html>
