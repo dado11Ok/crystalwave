@@ -5,183 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crystalwave.wtf</title>
 
-    <!-- Update the favicon link to use the new icon2.ico -->
-    <link rel="icon" href="icon/icon2.ico" type="image/x-icon">
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: black;
-            color: white;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s ease;
-        }
-
-        h1 {
-            text-align: center;
-            color: #4fa3f7;  /* Lighter Blue */
-            font-size: 3rem;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        .header {
-            background-color: black;
-            padding: 20px;
-            text-align: center;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        .header a {
-            color: #4fa3f7;
-            font-size: 1.5rem;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .header a:hover {
-            color: white;
-        }
-
-        /* Menu Styles */
-        .menu {
-            text-align: center;
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: absolute;
-            top: 100px;
-            left: -200px;
-            width: 200px;
-            background-color: black;
-            padding: 20px;
-            border-radius: 10px;
-            transition: left 0.3s ease;
-            opacity: 0;
-        }
-
-        .menu a {
-            color: #4fa3f7;
-            font-size: 1.2rem;
-            text-decoration: none;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #4fa3f7;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-
-        .menu a:hover {
-            background-color: #4fa3f7;
-            color: white;
-            transform: scale(1.05);
-        }
-
-        /* Hamburger Menu Styles */
-        .hamburger-menu {
-            display: block;
-            cursor: pointer;
-            margin: 20px;
-            width: 30px;
-            height: 20px;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000; /* Ensure it's on top */
-            transition: all 0.3s ease;
-        }
-
-        .hamburger-menu span {
-            background-color: #4fa3f7;
-            display: block;
-            height: 4px;
-            margin: 5px 0;
-            transition: all 0.3s ease;
-        }
-
-        .hamburger-menu.open span:nth-child(1) {
-            transform: rotate(45deg);
-            position: absolute;
-            top: 0;
-        }
-
-        .hamburger-menu.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger-menu.open span:nth-child(3) {
-            transform: rotate(-45deg);
-            position: absolute;
-            top: 16px;
-        }
-
-        .animated-link {
-            text-align: center;
-            margin-top: 50px;
-            animation: fadeIn 2.5s ease-in-out;
-        }
-
-        .animated-link a {
-            color: #4fa3f7;
-            font-size: 1.5rem;
-            text-decoration: none;
-            position: relative;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-
-        .animated-link a:hover {
-            color: white;
-        }
-
-        .animated-link a::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: #4fa3f7;
-            bottom: -5px;
-            left: 0;
-            transition: width 0.3s ease;
-        }
-
-        .animated-link a:hover::after {
-            width: 100%;
-        }
-
-        img {
-            width: 100%;
-            max-width: 600px;
-            display: block;
-            margin: 30px auto;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        /* Keyframe Animations */
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Slide-in animation for menu */
-        @keyframes slideIn {
-            0% { left: -200px; opacity: 0; }
-            100% { left: 0; opacity: 1; }
-        }
-
-        /* Button animation delay for cascading effect */
-        .menu a:nth-child(1) {
-            animation: fadeIn 1s ease-in-out 0.5s forwards;
-        }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crystalwave.wtf</title>
-
     <!-- Link to the favicon from your GitHub repository -->
     <link rel="icon" href="https://raw.githubusercontent.com/dado11Ok/crystalwave/refs/heads/main/icon/icon2.ico" type="image/x-icon">
 
@@ -345,11 +168,29 @@
             }
         }
 
-        img {
-            width: 100%;
-            max-width: 600px;
-            display: block;
-            margin: 30px auto;
+        /* Footer Styles */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9rem; /* Smaller font size */
+            color: white;
+        }
+
+        .footer a {
+            color: #4fa3f7;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+            background-color: #4fa3f7;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .footer p {
+            margin: 5px 0;
         }
 
     </style>
@@ -378,6 +219,7 @@
         <a href="https://crystalwave.wtf/home/index2.html">Click Here to Learn More</a>
     </div>
 
+    <!-- Footer Section -->
     <div class="footer">
         <p>Made by <strong>crystalwave.team</strong></p>
         <p>&copy; 2025 Crystalwave. All Rights Reserved.</p>
@@ -392,4 +234,3 @@
     </script>
 </body>
 </html>
-
