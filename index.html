@@ -83,10 +83,13 @@
         .hamburger-menu {
             display: block;
             cursor: pointer;
-            margin: 30px auto;
+            margin: 20px;
             width: 30px;
             height: 20px;
-            position: relative;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000; /* Ensure it's on top */
             transition: all 0.3s ease;
         }
 
