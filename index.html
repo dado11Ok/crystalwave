@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRYSTALWAVE | Advanced Security Tool</title>
+    <title>crystalwave | best tools</title>
     
     <!-- Favicon -->
     <link rel="icon" href="https://raw.githubusercontent.com/dado11Ok/crystalwave/refs/heads/main/icon/icon2.ico" type="image/x-icon">
@@ -444,7 +444,7 @@
         
         <div class="countdown" id="countdown">
             <div class="countdown-item">
-                <div class="countdown-number" id="days">00</div>
+                <div class="countdown-number" id="days">20</div>
                 <div class="countdown-label">Days</div>
             </div>
             <div class="countdown-item">
@@ -506,8 +506,9 @@
     <div class="particles" id="particles"></div>
     
     <script>
-        // Countdown Timer
-        const countDownDate = new Date("December 31, 2023 23:59:59").getTime();
+        // Countdown Timer - Set to 20 days from now
+        const now = new Date();
+        const countDownDate = new Date(now.getTime() + (20 * 24 * 60 * 60 * 1000)); // 20 days from now
         
         function updateCountdown() {
             const now = new Date().getTime();
