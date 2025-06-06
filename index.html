@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>crystalwave - required hub</title>
   <style>
     body {
@@ -177,9 +177,7 @@
     <div id="scripts" class="tab-content">
       <div class="section">
         <h2>scripts</h2>
-        <div id="activityLog">
-          <!-- Log entries will appear here -->
-        </div>
+        <div id="activityLog"></div>
       </div>
     </div>
 
@@ -191,7 +189,6 @@
   </div>
 
   <script>
-    let canUpload = true;
     let activityLog = [];
 
     function switchTab(tabId) {
@@ -207,19 +204,19 @@
     }
 
     function uploadScript() {
-      if (!canUpload) return;
-
-      const scriptText = document.getElementById("scriptInput").value.trim();
+      const input = document.getElementById("scriptInput");
       const uploadStatus = document.getElementById("uploadStatus");
+      const content = input.value.trim();
 
-      if (!scriptText) {
+      if (!content) {
         uploadStatus.textContent = "Please enter a script.";
         return;
       }
 
-      addLog("upload", scriptText);
+      addLog("upload", content);
+      saveLogs();
       uploadStatus.textContent = "Script uploaded!";
-      document.getElementById("scriptInput").value = "";
+      input.value = "";
     }
 
     function addLog(type, content) {
@@ -232,7 +229,6 @@
 
       const logEntry = document.createElement("div");
       logEntry.className = "log-entry";
-
       logEntry.innerHTML = `
         <div class="log-time">${log.time}</div>
         <div><span class="log-type">${log.type}</span><span class="log-content">${log.content}</span></div>
@@ -267,6 +263,21 @@
       document.getElementById("feedbackSubject").value = "";
       document.getElementById("feedbackContent").value = "";
     }
+
+    function saveLogs() {
+      localStorage.setItem("uploadedScripts", JSON.stringify(activityLog));
+    }
+
+    function loadLogs() {
+      const saved = localStorage.getItem("uploadedScripts");
+      if (saved) {
+        activityLog = JSON.parse(saved);
+        activityLog.forEach(log => addLog(log.type, log.content));
+      }
+    }
+
+    // Load logs on page load
+    window.onload = loadLogs;
   </script>
 </body>
 </html>
