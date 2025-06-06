@@ -1,257 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crystalwave - required hub</title>
-    <style>
-        body {
-            background-color: #0f1923;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            margin: 0;
-            padding: 0;
-            text-transform: lowercase;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            background-color: #1a2b3c;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            text-align: center;
-            border-bottom: 2px solid #3498db;
-        }
-        h1 {
-            color: #3498db;
-            margin: 0;
-            font-size: 1.8em;
-        }
-        .section {
-            background-color: #1a2b3c;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        textarea, input {
-            width: 100%;
-            background-color: #2c3e50;
-            color: #ffffff;
-            border: 1px solid #3498db;
-            border-radius: 3px;
-            padding: 8px;
-            margin-bottom: 8px;
-            font-family: monospace;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-right: 5px;
-        }
-        button:disabled {
-            background-color: #7f8c8d;
-            cursor: not-allowed;
-        }
-        .tabs {
-            display: flex;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-        .tab {
-            padding: 8px 15px;
-            background-color: #1a2b3c;
-            margin-right: 3px;
-            margin-bottom: 3px;
-            border-radius: 3px 3px 0 0;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-        .tab.active {
-            background-color: #3498db;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #7f8c8d;
-            font-size: 0.8em;
-        }
-        .log-entry {
-            background-color: #2c3e50;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 3px;
-            border-left: 3px solid #3498db;
-            position: relative;
-        }
-        .log-time {
-            color: #7f8c8d;
-            font-size: 0.8em;
-            margin-bottom: 5px;
-        }
-        .log-content {
-            font-family: monospace;
-            word-break: break-all;
-            white-space: pre-wrap;
-        }
-        .log-type {
-            display: inline-block;
-            padding: 2px 5px;
-            background-color: #3498db;
-            border-radius: 3px;
-            font-size: 0.7em;
-            margin-right: 5px;
-        }
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 2px 5px;
-            font-size: 0.7em;
-            background-color: #2c3e50;
-            border: 1px solid #3498db;
-        }
-        .copied-notice {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #3498db;
-            padding: 5px 10px;
-            border-radius: 3px;
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>crystalwave - required hub</title>
+  <style>
+    body {
+      background-color: #0f1923;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-transform: lowercase;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background-color: #1a2b3c;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      text-align: center;
+      border-bottom: 2px solid #3498db;
+    }
+    h1 {
+      color: #3498db;
+      margin: 0;
+      font-size: 1.8em;
+    }
+    .section {
+      background-color: #1a2b3c;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+    textarea, input {
+      width: 100%;
+      background-color: #2c3e50;
+      color: #ffffff;
+      border: 1px solid #3498db;
+      border-radius: 3px;
+      padding: 8px;
+      margin-bottom: 8px;
+      font-family: monospace;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+    button:disabled {
+      background-color: #7f8c8d;
+      cursor: not-allowed;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 8px 15px;
+      background-color: #1a2b3c;
+      margin-right: 3px;
+      margin-bottom: 3px;
+      border-radius: 3px 3px 0 0;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .tab.active {
+      background-color: #3498db;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #7f8c8d;
+      font-size: 0.8em;
+    }
+    .log-entry {
+      background-color: #2c3e50;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 3px;
+      border-left: 3px solid #3498db;
+      position: relative;
+    }
+    .log-time {
+      color: #7f8c8d;
+      font-size: 0.8em;
+      margin-bottom: 5px;
+    }
+    .log-content {
+      font-family: monospace;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+    .log-type {
+      display: inline-block;
+      padding: 2px 5px;
+      background-color: #3498db;
+      border-radius: 3px;
+      font-size: 0.7em;
+      margin-right: 5px;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 2px 5px;
+      font-size: 0.7em;
+      background-color: #2c3e50;
+      border: 1px solid #3498db;
+    }
+    .copied-notice {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #3498db;
+      padding: 5px 10px;
+      border-radius: 3px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>crystalwave - required hub</h1>
-        </header>
+  <div class="container">
+    <header>
+      <h1>crystalwave - required hub</h1>
+    </header>
 
-        <div class="tabs">
-            <div class="tab active" onclick="switchTab('scripts')">scripts</div>
-            <div class="tab" onclick="switchTab('safescripts')">safe scripts</div>
-            <div class="tab" onclick="switchTab('feedback')">feedback</div>
-            <div class="tab" onclick="switchTab('scripts')">scripts</div> <!-- was activity -->
-        </div>
-
-        <div id="scripts" class="tab-content active">
-            <div class="section">
-                <h2>upload script</h2>
-                <textarea id="scriptInput" placeholder="require(123255432303221):pload('90XYQ')"></textarea>
-                <button id="uploadBtn" onclick="uploadScript()">upload</button>
-                <p id="uploadStatus"></p>
-            </div>
-        </div>
-
-        <div id="safescripts" class="tab-content">
-            <div class="section">
-                <h2>safe scripts</h2>
-                <p>coming soon - currently in development</p>
-            </div>
-        </div>
-
-        <div id="feedback" class="tab-content">
-            <div class="section">
-                <h2>send feedback</h2>
-                <input type="text" id="feedbackSubject" placeholder="subject">
-                <textarea id="feedbackContent" placeholder="your message"></textarea>
-                <button onclick="sendFeedback()">send</button>
-                <p id="feedbackStatus"></p>
-            </div>
-        </div>
-
-        <div id="scripts" class="tab-content">
-            <div class="section">
-                <h2>scripts</h2>
-                <div id="activityLog">
-                    <!-- Log entries will appear here -->
-                    <div class="log-entry">
-                        <div class="log-time">[12:30]</div>
-                        <div class="log-content">
-                            <span class="log-type">exec</span>
-                            require(0000000000).test("name")
-                        </div>
-                        <button class="copy-btn" onclick="copyToClipboard('require(0000000000).test(&quot;name&quot;)')">copy</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="copiedNotice" class="copied-notice">copied!</div>
-
-        <footer>
-            crystalwave hub © 2023 | all rights not reserved
-        </footer>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('upload')">scripts</div>
+      <div class="tab" onclick="switchTab('safescripts')">safe scripts</div>
+      <div class="tab" onclick="switchTab('feedback')">feedback</div>
+      <div class="tab" onclick="switchTab('scripts')">scripts</div>
     </div>
 
-    <script>
-        let canUpload = true;
-        let activityLog = [];
+    <div id="upload" class="tab-content active">
+      <div class="section">
+        <h2>upload script</h2>
+        <textarea id="scriptInput" placeholder='require(0000000000).test("name")'></textarea>
+        <button id="uploadBtn" onclick="uploadScript()">upload</button>
+        <p id="uploadStatus"></p>
+      </div>
+    </div>
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById(tabId).classList.add('active');
-            document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
-        }
+    <div id="safescripts" class="tab-content">
+      <div class="section">
+        <h2>safe scripts</h2>
+        <p>coming soon - currently in development</p>
+      </div>
+    </div>
 
-        function uploadScript() {
-            if (!canUpload) return;
+    <div id="feedback" class="tab-content">
+      <div class="section">
+        <h2>send feedback</h2>
+        <input type="text" id="feedbackSubject" placeholder="subject">
+        <textarea id="feedbackContent" placeholder="your message"></textarea>
+        <button onclick="sendFeedback()">send</button>
+        <p id="feedbackStatus"></p>
+      </div>
+    </div>
 
-            const script = document.getElementById("scriptInput").value;
-            if (!script.trim()) return;
+    <div id="scripts" class="tab-content">
+      <div class="section">
+        <h2>scripts</h2>
+        <div id="activityLog">
+          <!-- Log entries will appear here -->
+        </div>
+      </div>
+    </div>
 
-            logActivity(script);
-            document.getElementById("uploadStatus").innerText = "uploaded!";
-            document.getElementById("scriptInput").value = "";
-        }
+    <div id="copiedNotice" class="copied-notice">copied!</div>
 
-        function logActivity(script) {
-            const logContainer = document.getElementById("activityLog");
-            const logEntry = document.createElement("div");
-            logEntry.className = "log-entry";
+    <footer>
+      crystalwave hub © 2023 | all rights not reserved
+    </footer>
+  </div>
 
-            const now = new Date();
-            const time = `[${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}]`;
+  <script>
+    let canUpload = true;
+    let activityLog = [];
 
-            logEntry.innerHTML = `
-                <div class="log-time">${time}</div>
-                <div class="log-content">
-                    <span class="log-type">exec</span>
-                    ${script}
-                </div>
-                <button class="copy-btn" onclick="copyToClipboard('${script.replace(/'/g, "&quot;")}')">copy</button>
-            `;
-            logContainer.prepend(logEntry);
-        }
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
 
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const notice = document.getElementById("copiedNotice");
-                notice.style.display = "block";
-                setTimeout(() => {
-                    notice.style.display = "none";
-                }, 2000);
-            });
-        }
-    </script>
+      document.getElementById(tabId).classList.add('active');
+      document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
+    }
+
+    function uploadScript() {
+      if (!canUpload) return;
+
+      const scriptText = document.getElementById("scriptInput").value.trim();
+      const uploadStatus = document.getElementById("uploadStatus");
+
+      if (!scriptText) {
+        uploadStatus.textContent = "Please enter a script.";
+        return;
+      }
+
+      addLog("upload", scriptText);
+      uploadStatus.textContent = "Script uploaded!";
+      document.getElementById("scriptInput").value = "";
+    }
+
+    function addLog(type, content) {
+      const log = {
+        time: new Date().toLocaleTimeString(),
+        type,
+        content
+      };
+      activityLog.unshift(log);
+
+      const logEntry = document.createElement("div");
+      logEntry.className = "log-entry";
+
+      logEntry.innerHTML = `
+        <div class="log-time">${log.time}</div>
+        <div><span class="log-type">${log.type}</span><span class="log-content">${log.content}</span></div>
+        <button class="copy-btn" onclick="copyToClipboard(\`${log.content.replace(/`/g, '\\`')}\`)">copy</button>
+      `;
+
+      const logContainer = document.getElementById("activityLog");
+      logContainer.insertBefore(logEntry, logContainer.firstChild);
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const notice = document.getElementById("copiedNotice");
+        notice.style.display = "block";
+        setTimeout(() => {
+          notice.style.display = "none";
+        }, 1500);
+      });
+    }
+
+    function sendFeedback() {
+      const subject = document.getElementById("feedbackSubject").value.trim();
+      const content = document.getElementById("feedbackContent").value.trim();
+      const status = document.getElementById("feedbackStatus");
+
+      if (!subject || !content) {
+        status.textContent = "Please fill out both fields.";
+        return;
+      }
+
+      status.textContent = "Feedback sent. Thank you!";
+      document.getElementById("feedbackSubject").value = "";
+      document.getElementById("feedbackContent").value = "";
+    }
+  </script>
 </body>
 </html>
