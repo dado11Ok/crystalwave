@@ -1,283 +1,596 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>crystalwave - required hub</title>
-  <style>
-    body {
-      background-color: #0f1923;
-      color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-transform: lowercase;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    header {
-      background-color: #1a2b3c;
-      padding: 15px;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      text-align: center;
-      border-bottom: 2px solid #3498db;
-    }
-    h1 {
-      color: #3498db;
-      margin: 0;
-      font-size: 1.8em;
-    }
-    .section {
-      background-color: #1a2b3c;
-      padding: 15px;
-      border-radius: 5px;
-      margin-bottom: 15px;
-    }
-    textarea, input {
-      width: 100%;
-      background-color: #2c3e50;
-      color: #ffffff;
-      border: 1px solid #3498db;
-      border-radius: 3px;
-      padding: 8px;
-      margin-bottom: 8px;
-      font-family: monospace;
-    }
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 3px;
-      cursor: pointer;
-      margin-right: 5px;
-    }
-    button:disabled {
-      background-color: #7f8c8d;
-      cursor: not-allowed;
-    }
-    .tabs {
-      display: flex;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-    .tab {
-      padding: 8px 15px;
-      background-color: #1a2b3c;
-      margin-right: 3px;
-      margin-bottom: 3px;
-      border-radius: 3px 3px 0 0;
-      cursor: pointer;
-      font-size: 0.9em;
-    }
-    .tab.active {
-      background-color: #3498db;
-    }
-    .tab-content {
-      display: none;
-    }
-    .tab-content.active {
-      display: block;
-    }
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      color: #7f8c8d;
-      font-size: 0.8em;
-    }
-    .log-entry {
-      background-color: #2c3e50;
-      padding: 10px;
-      margin-bottom: 8px;
-      border-radius: 3px;
-      border-left: 3px solid #3498db;
-      position: relative;
-    }
-    .log-time {
-      color: #7f8c8d;
-      font-size: 0.8em;
-      margin-bottom: 5px;
-    }
-    .log-content {
-      font-family: monospace;
-      word-break: break-word;
-      white-space: pre-wrap;
-    }
-    .log-type {
-      display: inline-block;
-      padding: 2px 5px;
-      background-color: #3498db;
-      border-radius: 3px;
-      font-size: 0.7em;
-      margin-right: 5px;
-    }
-    .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 2px 5px;
-      font-size: 0.7em;
-      background-color: #2c3e50;
-      border: 1px solid #3498db;
-    }
-    .copied-notice {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #3498db;
-      padding: 5px 10px;
-      border-radius: 3px;
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrystalWave.WTF - Roblox Marketplace</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        :root {
+            --primary: #0066ff;
+            --secondary: #0033aa;
+            --accent: #00aaff;
+            --dark: #001133;
+            --light: #f0f8ff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark);
+            color: white;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 170, 255, 0.1) 0%, transparent 20%);
+        }
+        
+        header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links a.active {
+            background-color: var(--accent);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Marketplace Styles */
+        .marketplace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .add-item-btn {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+        }
+        
+        .add-item-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 102, 255, 0.4);
+        }
+        
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .item-card {
+            background: rgba(0, 34, 102, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 170, 255, 0.2);
+        }
+        
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 102, 255, 0.3);
+            border-color: var(--accent);
+        }
+        
+        .item-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
+        }
+        
+        .item-details {
+            padding: 1rem;
+        }
+        
+        .item-game {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+        
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .item-actions {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.5rem;
+            border-top: 1px solid rgba(0, 170, 255, 0.2);
+        }
+        
+        .delete-btn {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #ff5555;
+            border: 1px solid #ff5555;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+        
+        .delete-btn:hover {
+            background-color: rgba(255, 0, 0, 0.3);
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #001a4d, #003366);
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--accent);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .close-modal:hover {
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 170, 255, 0.3);
+            background-color: rgba(0, 34, 102, 0.5);
+            color: white;
+            font-family: inherit;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4);
+        }
+        
+        /* Login Styles */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+        }
+        
+        .login-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .g_id_signin {
+            margin-top: 1rem;
+        }
+        
+        /* Info Page Styles */
+        .info-content {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .info-content h2 {
+            color: var(--accent);
+            margin-top: 2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 0.75rem;
+            }
+            
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
     <header>
-      <h1>crystalwave - required hub</h1>
+        <nav>
+            <div class="logo">crystalwave.wtf</div>
+            <div class="nav-links">
+                <a href="#" class="active" data-tab="marketplace">Marketplace</a>
+                <a href="#" data-tab="info">Info</a>
+                <div id="user-profile"></div>
+            </div>
+        </nav>
     </header>
-
-    <div class="tabs">
-      <div class="tab active" onclick="switchTab('upload')">scripts</div>
-      <div class="tab" onclick="switchTab('safescripts')">safe scripts</div>
-      <div class="tab" onclick="switchTab('feedback')">feedback</div>
-      <div class="tab" onclick="switchTab('scripts')">scripts</div>
+    
+    <div class="container">
+        <!-- Marketplace Tab -->
+        <div id="marketplace" class="tab-content active">
+            <div class="marketplace-header">
+                <h1>Roblox Item Marketplace</h1>
+                <button id="add-item-btn" class="add-item-btn" style="display: none;">+ Add Item</button>
+            </div>
+            
+            <div class="items-grid" id="items-container">
+                <!-- Items will be loaded here -->
+            </div>
+        </div>
+        
+        <!-- Info Tab -->
+        <div id="info" class="tab-content">
+            <div class="info-content">
+                <h1>About CrystalWave.WTF</h1>
+                <p>Welcome to the premier marketplace for Roblox in-game items and assets. Buy, sell, and trade with confidence in our secure ecosystem.</p>
+                
+                <h2>How It Works</h2>
+                <p>1. Sign in with Google to access the marketplace</p>
+                <p>2. Browse items listed by other users</p>
+                <p>3. List your own items for sale by clicking "Add Item"</p>
+                <p>4. Connect with sellers/buyers to complete transactions</p>
+                
+                <h2>Rules & Guidelines</h2>
+                <p>- Only list legitimate Roblox items you own</p>
+                <p>- No scamming or fraudulent listings</p>
+                <p>- Be respectful to other users</p>
+                <p>- The admin (crystalwave.wtf@gmail.com) reserves the right to remove any content</p>
+                
+                <h2>Contact</h2>
+                <p>For support or inquiries, contact: crystalwave.wtf@gmail.com</p>
+            </div>
+        </div>
+        
+        <!-- Login Container (shown when not logged in) -->
+        <div id="login-container" class="login-container">
+            <h1 class="login-title">Welcome to CrystalWave.WTF</h1>
+            <p>Please sign in with Google to access the Roblox marketplace</p>
+            <div id="g_id_onload"
+                data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                data-context="signin"
+                data-ux_mode="popup"
+                data-callback="handleGoogleSignIn"
+                data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                data-type="standard"
+                data-shape="pill"
+                data-theme="filled_blue"
+                data-text="signin_with"
+                data-size="large"
+                data-logo_alignment="left">
+            </div>
+        </div>
     </div>
-
-    <div id="upload" class="tab-content active">
-      <div class="section">
-        <h2>upload script</h2>
-        <textarea id="scriptInput" placeholder='require(0000000000).test("name")'></textarea>
-        <button id="uploadBtn" onclick="uploadScript()">upload</button>
-        <p id="uploadStatus"></p>
-      </div>
+    
+    <!-- Add Item Modal -->
+    <div id="add-item-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add New Item</h2>
+            <form id="item-form">
+                <div class="form-group">
+                    <label for="game-name">Game Name</label>
+                    <input type="text" id="game-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-title">Item Title</label>
+                    <input type="text" id="item-title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-price">Price (Robux)</label>
+                    <input type="number" id="item-price" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-image">Image URL</label>
+                    <input type="url" id="item-image" class="form-control" required placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label for="roblox-account">Your Roblox Username</label>
+                    <input type="text" id="roblox-account" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="gamepass-id">Gamepass ID (optional)</label>
+                    <input type="text" id="gamepass-id" class="form-control">
+                </div>
+                <button type="submit" class="submit-btn">Submit Item</button>
+            </form>
+        </div>
     </div>
-
-    <div id="safescripts" class="tab-content">
-      <div class="section">
-        <h2>safe scripts</h2>
-        <p>coming soon - currently in development</p>
-      </div>
-    </div>
-
-    <div id="feedback" class="tab-content">
-      <div class="section">
-        <h2>send feedback</h2>
-        <input type="text" id="feedbackSubject" placeholder="subject">
-        <textarea id="feedbackContent" placeholder="your message"></textarea>
-        <button onclick="sendFeedback()">send</button>
-        <p id="feedbackStatus"></p>
-      </div>
-    </div>
-
-    <div id="scripts" class="tab-content">
-      <div class="section">
-        <h2>scripts</h2>
-        <div id="activityLog"></div>
-      </div>
-    </div>
-
-    <div id="copiedNotice" class="copied-notice">copied!</div>
-
-    <footer>
-      crystalwave hub © 2023 | all rights not reserved
-    </footer>
-  </div>
-
-  <script>
-    let activityLog = [];
-
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-      });
-
-      document.getElementById(tabId).classList.add('active');
-      document.querySelector(`.tab[onclick="switchTab('${tabId}')"]`).classList.add('active');
-    }
-
-    function uploadScript() {
-      const input = document.getElementById("scriptInput");
-      const uploadStatus = document.getElementById("uploadStatus");
-      const content = input.value.trim();
-
-      if (!content) {
-        uploadStatus.textContent = "Please enter a script.";
-        return;
-      }
-
-      addLog("upload", content);
-      saveLogs();
-      uploadStatus.textContent = "Script uploaded!";
-      input.value = "";
-    }
-
-    function addLog(type, content) {
-      const log = {
-        time: new Date().toLocaleTimeString(),
-        type,
-        content
-      };
-      activityLog.unshift(log);
-
-      const logEntry = document.createElement("div");
-      logEntry.className = "log-entry";
-      logEntry.innerHTML = `
-        <div class="log-time">${log.time}</div>
-        <div><span class="log-type">${log.type}</span><span class="log-content">${log.content}</span></div>
-        <button class="copy-btn" onclick="copyToClipboard(\`${log.content.replace(/`/g, '\\`')}\`)">copy</button>
-      `;
-
-      const logContainer = document.getElementById("activityLog");
-      logContainer.insertBefore(logEntry, logContainer.firstChild);
-    }
-
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        const notice = document.getElementById("copiedNotice");
-        notice.style.display = "block";
-        setTimeout(() => {
-          notice.style.display = "none";
-        }, 1500);
-      });
-    }
-
-    function sendFeedback() {
-      const subject = document.getElementById("feedbackSubject").value.trim();
-      const content = document.getElementById("feedbackContent").value.trim();
-      const status = document.getElementById("feedbackStatus");
-
-      if (!subject || !content) {
-        status.textContent = "Please fill out both fields.";
-        return;
-      }
-
-      status.textContent = "Feedback sent. Thank you!";
-      document.getElementById("feedbackSubject").value = "";
-      document.getElementById("feedbackContent").value = "";
-    }
-
-    function saveLogs() {
-      localStorage.setItem("uploadedScripts", JSON.stringify(activityLog));
-    }
-
-    function loadLogs() {
-      const saved = localStorage.getItem("uploadedScripts");
-      if (saved) {
-        activityLog = JSON.parse(saved);
-        activityLog.forEach(log => addLog(log.type, log.content));
-      }
-    }
-
-    // Load logs on page load
-    window.onload = loadLogs;
-  </script>
-</body>
-</html>
+    
+    <script>
+        // Sample data - in a real app, this would come from a database
+        let items = [
+            {
+                id: 1,
+                game: "Pet Simulator X",
+                title: "Rainbow Dominus",
+                price: 5000,
+                image: "https://tr.rbxcdn.com/9d1a1a4b3c6c5c9c7a0a3a4a3a4a3a4/420/420/Image/Png",
+                robloxAccount: "protrader123",
+                gamepassId: "12345678",
+                uploader: "user1@gmail.com"
+            },
+            {
+                id: 2,
+                game: "Adopt Me!",
+                title: "Shadow Dragon",
+                price: 8000,
+                image: "https://tr.rbxcdn.com/9d1a1a4b3c6c5c9c7a0a3a4a3a4a3a4/420/420/Image/Png",
+                robloxAccount: "adoptme_pro",
+                gamepassId: "87654321",
+                uploader: "user2@gmail.com"
+            }
+        ];
+        
+        let currentUser = null;
+        const ADMIN_EMAIL = "crystalwave.wtf@gmail.com";
+        
+        // DOM Elements
+        const loginContainer = document.getElementById('login-container');
+        const marketplaceTab = document.getElementById('marketplace');
+        const infoTab = document.getElementById('info');
+        const addItemBtn = document.getElementById('add-item-btn');
+        const itemsContainer = document.getElementById('items-container');
+        const addItemModal = document.getElementById('add-item-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const itemForm = document.getElementById('item-form');
+        const tabLinks = document.querySelectorAll('[data-tab]');
+        
+        // Initialize the app
+        function initApp() {
+            renderItems();
+            setupEventListeners();
+        }
+        
+        // Render all items
+        function renderItems() {
+            itemsContainer.innerHTML = '';
+            
+            items.forEach(item => {
+                const itemCard = document.createElement('div');
+                itemCard.className = 'item-card';
+                
+                const isAdmin = currentUser && currentUser.email === ADMIN_EMAIL;
+                const isOwner = currentUser && currentUser.email === item.uploader;
+                
+                itemCard.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="item-image" onerror="this.src='https://via.placeholder.com/300?text=Item+Image'">
+                    <div class="item-details">
+                        <div class="item-game">${item.game}</div>
+                        <div class="item-title">${item.title}</div>
+                        <div class="item-price">${item.price.toLocaleString()} Robux</div>
+                        <div class="item-meta">
+                            <span>Seller: ${item.robloxAccount}</span>
+                            ${item.gamepassId ? `<span>Gamepass: ${item.gamepassId}</span>` : ''}
+                        </div>
+                    </div>
+                    ${(isAdmin || isOwner) ? `
+                    <div class="item-actions">
+                        <button class="delete-btn" data-id="${item.id}">Delete</button>
+                    </div>
+                    ` : ''}
+                `;
+                
+                itemsContainer.appendChild(itemCard);
+            });
+            
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const itemId = parseInt(e.target.getAttribute('data-id'));
+                    deleteItem(itemId);
+                });
+            });
+        }
+        
+        // Delete an item
+        function deleteItem(id) {
+            if (!currentUser) return;
+            
+            const item = items.find(item => item.id === id);
+            if (!item) return;
+            
+            // Only allow admin or owner to delete
+            if (currentUser.email === ADMIN_EMAIL || currentUser.email === item.uploader) {
+                items = items.filter(item => item.id !== id);
+                renderItems();
+            }
+        }
+        
+        // Add a new item
+        function addItem(item) {
+            const newItem = {
+                id: Date.now(), // Simple unique ID
+                game: item.gameName,
+                title: item.title,
+                price: parseInt(item.price),
+                image: item.image,
+                robloxAccount: item.robloxAccount,
+                gamepassId: item.gamepassId,
+                uploader: currentUser.email
+            };
+            
+            items.unshift(newItem);
+            renderItems();
+            closeAddItemModal();
+        }
+        
+        // Show/hide add item modal
+        function showAddItemModal() {
+            addItemModal.style.display = 'flex';
+        }
+        
+        function closeAddItemModal() {
+            addItemModal.style.display = 'none';
+            itemForm.reset();
+        }
+        
+        // Handle Google sign-in
+        function handleGoogleSignIn(response) {
+            const user = decodeJWT(response.credential);
+            currentUser = {
+                name: user.name,
+                email: user.email,
+                picture: user.picture
+            };
+            
+            // Hide login, show content
+            loginContainer.style.display = 'none';
+            marketplaceTab.style.display = 'block';
+            
+            // Show add item button if logged in
+            addItemBtn.style.display = 'block';
+            
+            // Update UI based on user
+            updateUserUI();
+        }
+        
+        // Decode JWT token
+        function decodeJWT(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            
+            return JSON.parse(jsonPayload);
+        }
+        
+        // Update UI based on user
+        function updateUserUI() {
+            // You can add user-specific UI updates here
